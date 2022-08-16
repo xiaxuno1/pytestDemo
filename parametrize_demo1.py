@@ -11,37 +11,26 @@
 import pytest,sys
 
 
-@pytest.mark.skip(reason = "no need currently testing this")
-def test_01():
-    print("这是test01")
+import sys
+import pytest
 
-@pytest.mark.skipif(sys.version_info < (3, 6), reason="requires python3.7 or higher")
-def test_02():
-    print("这是测试02")
 
-@pytest.mark.slow
-def test_03():
-    print("这是测试03")
-
-@pytest.mark.xfail
-def test_04():
-    print("这是测试04")
-    assert 2==4
-
-@pytest.mark.xfail(raises=RuntimeError)
-def test_05():
-    print("这是测试05")
-    assert 2==4
-
-@pytest.mark.xfail(run=False)
-def test_06():
-    print("这是测试06")
-    assert 2==4
-
-@pytest.mark.xfail(strict=True)
-def test_07():
-    print("这是测试07")
-    assert 2==2
+@pytest.mark.parametrize(
+    ("n", "expected"),
+    [
+        (1, 2),
+        pytest.param(1, 0, marks=pytest.mark.xfail),
+        pytest.param(1, 3, marks=pytest.mark.xfail(reason="some bug")),
+        (2, 3),
+        (3, 4),
+        (4, 5),
+        pytest.param(
+            10, 11, marks=pytest.mark.skipif(sys.version_info >= (3, 0), reason="py2k")
+        ),
+    ],
+)
+def test_increment(n, expected):
+    assert n + 1 == expected
 
 if __name__ == '__main__':
-    pytest.main(["-rx","mark_demo1.py"])
+    pytest.main(["-rx","parametrize_demo1.py"])

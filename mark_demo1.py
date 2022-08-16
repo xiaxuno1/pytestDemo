@@ -8,43 +8,40 @@
 # Description:
 # ---------------------------------------------------
 # content of test_emaillib.py
-import pytest
-
-from yeild_demo import Email, MailAdminClient
+import pytest,sys
 
 
-@pytest.fixture
-def mail_admin():
-    return MailAdminClient()
+@pytest.mark.skip(reason = "no need currently testing this")
+def test_01():
+    print("这是test01")
 
+@pytest.mark.skipif(sys.version_info < (3, 6), reason="requires python3.7 or higher")
+def test_02():
+    print("这是测试02")
 
-@pytest.fixture
-def sending_user(mail_admin):
-    print("执行发送用户的创建，在yeild之前")
-    user = mail_admin.create_user()
-    yield user
-    print("执行删除发送的用户，在yeild后")
-    mail_admin.delete_user(user)
+@pytest.mark.slow
+def test_03():
+    print("这是测试03")
 
+@pytest.mark.xfail
+def test_04():
+    print("这是测试04")
+    assert 2==4
 
-@pytest.fixture
-def receiving_user(mail_admin):
-    print("执行接收用户的创建，yield前")
-    user = mail_admin.create_user()
-    yield user
-    print("执行接收用户的删除，yield之后")
-    mail_admin.delete_user(user)
+@pytest.mark.xfail(raises=RuntimeError)
+def test_05():
+    print("这是测试05")
+    assert 2==4
 
+@pytest.mark.xfail(run=False)
+def test_06():
+    print("这是测试06")
+    assert 2==4
 
-def test_email_received(sending_user, receiving_user):
-    print("开始测试用例....")
-    email = Email(subject="Hey!", body="How's it going?")
-    print("调用发送模块")
-    sending_user.send_email(email, receiving_user)
-    print("调用接收模块，assert断言")
-    assert email in receiving_user.inbox
-    print("程序执行完毕")
-
+@pytest.mark.xfail(strict=True)
+def test_07():
+    print("这是测试07")
+    assert 2==2
 
 if __name__ == '__main__':
-    pytest.main(["-s","yeild_demo1.py"])
+    pytest.main(["-rx","mark_demo1.py"])
