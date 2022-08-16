@@ -46,6 +46,6 @@ def email(sending_user, receiving_user, request):
     request.addfinalizer(empty_mailbox)
     return _email
 
-
+@pytest.mark.skip
 def test_email_received(receiving_user, email):
     assert email in receiving_user.inbox
