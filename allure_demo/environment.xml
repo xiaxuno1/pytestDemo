@@ -1,0 +1,20 @@
+<!--用来显示环境配置-->
+<environment>
+    <parameter>
+        <key>Browser</key>
+        <value>Firefox</value>
+    </parameter>
+    <parameter>
+        <key>Browser.Version</key>
+        <value>102.0.1</value>
+    </parameter>
+    <parameter>
+        <key>Stand</key>
+        <value>Production</value>
+    </parameter>
+    <!--parameter>
+        <key>Auther</key>
+        <value>XiaXu</value>>
+    </parameter>-->
+</environment>
+
