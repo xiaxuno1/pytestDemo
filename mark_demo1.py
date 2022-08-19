@@ -44,4 +44,4 @@ def test_07():
     assert 2==2
 
 if __name__ == '__main__':
-    pytest.main(["-rx","mark_demo1.py"])
+    pytest.main(["-rx","test_mark_demo1.py"])
