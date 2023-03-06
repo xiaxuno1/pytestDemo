@@ -81,4 +81,6 @@ class TestBaidu:
 if __name__ == '__main__':
     pytest.main(["-s","-v","--alluredir=./tmp/my_allrue_results",'--clean-alluredir'])
     #os.system("allure generate -c ./tmp/my_allrue_results")
+    #print(os.system("chdir"))#win下查看当前目录
+    os.system("copy environment.xml tmp\my_allrue_results\\")
     os.system("allure generate --clean ./tmp/my_allrue_results --output ./reporter/")
